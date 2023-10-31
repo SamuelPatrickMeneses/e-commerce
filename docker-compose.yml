@@ -7,6 +7,9 @@ services:
     ports:
       - 80:80
     environment:
+      SENDGRID_API_KEY: "${SENDGRID_API_KEY}"
+      INTERCOM_APP_ID: "${INTERCOM_APP_ID}"
+      SENDGRID_DOMAIN: "${SENDGRID_DOMAIN}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_USER: "${DB_USER}"
       DB_NAME: "${DB_NAME}"

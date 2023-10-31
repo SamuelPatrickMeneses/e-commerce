@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../sendgrid-php/sendgrid-php.php';
 
-$key = '';
+$key = $_ENV['SENDGRID_API_KEY'] ?? '';
 
 function sendEmail($emails, $title, $message, $key) {
   /*  $attachment = new SendGrid\Attachment();
@@ -17,7 +17,7 @@ function sendEmail($emails, $title, $message, $key) {
     }*/
     foreach($emails as $email) {
         $mail = new \SendGrid\Mail\Mail();
-        $mail->setFrom("donotreply@YOUR_SENDGRID_DOMAIN", "COMPANY NAME");
+        $mail->setFrom("donotreply@". $_ENV['SENDGRID_DOMAIN'], "COMPANY NAME");
         $mail->setSubject($title);
       //  $mail->addAttachment($attachment);
         $mail->addTo($email, $email);

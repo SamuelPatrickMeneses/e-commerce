@@ -83,7 +83,7 @@ $ig = $statement->fetchColumn();
         <script>
             window.intercomSettings = {
                 api_base: "https://api-iam.intercom.io",
-                app_id: "",
+                app_id: "<?= $_ENV['INTERCOM_APP_ID']?>",
                 name: "<?= $_SESSION['name'] ?>", // Full name
                 email: "<?= $_SESSION['email'] ?>", // Email address
                 created_at: "<?= $_SESSION['created-time'] ?>" // Signup date as a Unix timestamp
@@ -98,7 +98,7 @@ $ig = $statement->fetchColumn();
         <script>
             window.intercomSettings = {
                 api_base: "https://api-iam.intercom.io",
-                app_id: ""
+                app_id: "<?= $_ENV['INTERCOM_APP_ID']?>"
             };
         </script>
 
