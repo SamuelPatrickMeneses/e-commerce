@@ -1,0 +1,33 @@
+services:
+  php:
+    image: my/php
+    build: .
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 80:80
+    environment:
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_USER: "${DB_USER}"
+      DB_NAME: "${DB_NAME}"
+      DB_PORT: "${DB_PORT:-3306}"
+      DB_HOST: "${DB_HOST:-db}"
+    networks:
+      - aplication_network
+  db:
+    image: mysql:8.1.0
+    command: --default-authentication-plugin=mysql_native_password 
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_ROOT_USER: "${MYSQL_ROOT_USER}"
+      MYSQL_TCP_PORT: "${DB_PORT:-3306}"
+    networks:
+      - aplication_network
+    volumes:
+      - aplication_database:/var/lib/mysql
+
+networks:
+  aplication_network:
+    driver: bridge
+volumes:
+  aplication_database:

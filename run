@@ -1,0 +1,38 @@
+#/bin/bash
+
+set -o errexit
+set -o pipefail
+
+source .env
+
+function up {
+    docker compose up "${@}"
+}
+
+function down {
+    docker compose down "${@}"
+}
+
+function ps {
+    docker ps
+}
+
+
+function db:clean {
+    ./dbUtil/generateCleanDB.sh > ./dbUtil/clean.sql
+    docker compose cp dbUtil/clean.sql db:/tmp/
+    docker compose exec db sh -c "MYSQL_PWD=${MYSQL_ROOT_PASSWORD} mysql -u ${MYSQL_ROOT_USER} < /tmp/clean.sql"
+}
+
+function db:reset {
+    db:clean
+    ./dbUtil/generateUserAndDB.sh > ./dbUtil/schema.sql
+    docker compose cp dbUtil/schema.sql db:/tmp/
+    docker compose exec db sh -c "MYSQL_PWD=${MYSQL_ROOT_PASSWORD} mysql -u ${MYSQL_ROOT_USER} < /tmp/schema.sql"
+}
+
+function mysql {
+    docker compose exec db sh -c "MYSQL_PWD=${MYSQL_ROOT_PASSWORD} mysql -u ${MYSQL_ROOT_USER} ${DB_NAME}"
+}
+
+"${@}"
