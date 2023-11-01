@@ -50,16 +50,16 @@ the database root password, used by db container.
 ##### MYSQL_ROOT_USER
 the database root user, used by db container.
 
-### SENDGRID_API_KEY
+##### SENDGRID_API_KEY
 the sendgrid API key, usade by php container.
 
-### INTERCOM_APP_ID
+##### INTERCOM_APP_ID
 the intercom app id, usade by php container.
 
-### SENDGRID_DOMAIN
+##### SENDGRID_DOMAIN
 the your sendrid domain, usade by php container.
 
-### DEB_REPOSITORY
+##### DEB_REPOSITORY
 if you can't install php_gd/gd dependencies, set here a debian repository of your trust(example: "deb http://ftp.br.debian.org/debian/ buster main"), otherwise dont't set it, used by /Dockerfile.
 warning: Be careful not to cause conflicts with other already declared repositories in the "/etc/apt/source.list" file of your php base image.
 
