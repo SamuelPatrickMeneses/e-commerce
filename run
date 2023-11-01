@@ -25,6 +25,11 @@ function db:clean {
 }
 
 function db:reset {
+    ./dbUtil/generateUserAndDB.sh > ./dbUtil/schema.sql
+    docker compose cp dbUtil/schema.sql db:/tmp/
+    docker compose exec db sh -c "MYSQL_PWD=${MYSQL_ROOT_PASSWORD} mysql -u ${MYSQL_ROOT_USER} < /tmp/schema.sql"
+}
+function db:clean_and_reset {
     db:clean
     ./dbUtil/generateUserAndDB.sh > ./dbUtil/schema.sql
     docker compose cp dbUtil/schema.sql db:/tmp/
